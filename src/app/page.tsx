@@ -1,95 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-24 text-center">
+        <h1 className="text-5xl font-bold mb-4">Welcome to Handcrafted Haven</h1>
+        <p className="text-xl mb-8">A digital marketplace for unique, handmade treasures crafted by talented artisans.</p>
+        <a
+          href="#explore"
+          className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 py-3 px-6 rounded-full font-semibold"
+        >
+          Explore Now
+        </a>
+      </section>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      {/* About Section */}
+      <section id="explore" className="py-16 px-6 text-center bg-white">
+        <h2 className="text-3xl font-bold mb-6">What is Handcrafted Haven?</h2>
+        <p className="text-lg max-w-3xl mx-auto mb-8">
+          Handcrafted Haven is an innovative web application designed to connect artisans and crafters with customers who value the beauty and uniqueness of handmade items. Our platform offers a virtual marketplace where creators can showcase and sell their works, fostering a community of passionate makers and conscious consumers.
+        </p>
+        <a
+          href="#features"
+          className="text-blue-500 font-semibold hover:underline"
+        >
+          Learn more about the platform
+        </a>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-16 bg-gray-100 text-center">
+        <h2 className="text-3xl font-bold mb-6">Features</h2>
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="feature-card bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-3">Showcase Your Art</h3>
+            <p>Artisans can create detailed profiles and display their handmade items for a global audience.</p>
+          </div>
+          <div className="feature-card bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-3">Secure E-commerce</h3>
+            <p>Our platform provides secure and easy-to-use payment solutions to support your sales.</p>
+          </div>
+          <div className="feature-card bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-3">Foster a Community</h3>
+            <p>Join a community of like-minded individuals passionate about handmade creations and sustainability.</p>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-16 text-center bg-blue-500 text-white">
+        <h2 className="text-3xl font-bold mb-6">Join the Handmade Movement</h2>
+        <p className="text-lg mb-8">Whether you're a creator or a shopper, Handcrafted Haven connects you to a world of unique, handmade treasures.</p>
         <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/signup"
+          className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 py-3 px-6 rounded-full font-semibold"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          Get Started Today
         </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Footer Section */}
+      <footer className="bg-gray-800 text-white py-8 text-center">
+        <p>© 2025 Handcrafted Haven. All rights reserved.</p>
       </footer>
     </div>
   );
-}
+
+
+};
+
+
+
+
+
+export default Home;
