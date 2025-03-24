@@ -49,9 +49,10 @@ const Home = () => {
       </section>
 
       {/* Call to Action Section */}
+    
       <section className="py-16 text-center bg-blue-500 text-white">
         <h2 className="text-3xl font-bold mb-6">Join the Handmade Movement</h2>
-        // eslint-disable-next-line react/no-unescaped-entities
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
         <p className="text-lg mb-8">Whether you're a creator or a shopper, Handcrafted Haven connects you to a world of unique, handmade treasures.</p>
         <a
           href="/signup"
