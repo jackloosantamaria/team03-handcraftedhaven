@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-24 text-center">
+      <section className="bg-[url(./heroImage.jpg)] bg-cover text-white py-24 text-center">
         <h1 className="text-5xl font-bold mb-4">Welcome to Handcrafted Haven</h1>
         <p className="text-xl mb-8">A digital marketplace for unique, handmade treasures crafted by talented artisans.</p>
         <a
