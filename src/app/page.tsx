@@ -9,7 +9,7 @@ const Home = () => {
         <p className="text-xl mb-8">A digital marketplace for unique, handmade treasures crafted by talented artisans.</p>
         <a
           href="#explore"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black-800 py-3 px-6 rounded-full font-semibold"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-full font-semibold"
         >
           Explore Now
         </a>
@@ -56,7 +56,7 @@ const Home = () => {
         <p className="text-lg mb-8">Whether you're a creator or a shopper, Handcrafted Haven connects you to a world of unique, handmade treasures.</p>
         <a
           href="/signup"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black-800 py-3 px-6 rounded-full font-semibold"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-full font-semibold"
         >
           Get Started Today
         </a>
