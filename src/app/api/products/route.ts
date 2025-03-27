@@ -119,6 +119,7 @@ export async function GET(req: Request): Promise<Response> {
         const productId = url.searchParams.get("productId");
 
         if (productId) {
+            // Fetch a single product
             const products = await getProducts();
             const product = products.find(p => p.id === Number(productId));
             if (!product) {
@@ -155,18 +156,13 @@ export async function GET(req: Request): Promise<Response> {
 export async function POST(req: Request): Promise<Response> {
     try {
         const { product, imageUrl }: { product: Product, imageUrl: string } = await req.json();
-        console.log('Received product:', product);
-        console.log('Received imageUrl:', imageUrl);
 
         // Add product
         const newProduct = await addProduct(product);
-        console.log('New product created:', newProduct);
 
         // Add image if provided
         if (imageUrl) {
-            console.log('Adding image for product ID:', newProduct[0].id);
-            await addProductImage(newProduct[0].id!, imageUrl);
-            console.log('Image added successfully.');
+            await addProductImage(newProduct[0].id!, imageUrl); // Add image to the new product
         }
 
         return new Response(JSON.stringify(newProduct), {
@@ -174,22 +170,29 @@ export async function POST(req: Request): Promise<Response> {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        console.error('Error occurred:', error);
         return new Response(JSON.stringify({ error: 'Error adding product' }), { status: 500 });
     }
 }
-
 
 // Update a product
 export async function PUT(req: Request): Promise<Response> {
     try {
         const { id, product, imageUrl }: { id: number, product: Product, imageUrl?: string } = await req.json();
 
+        // Update the product
+        console.log('Data received:', {id, product, imageUrl});
         const updatedProduct = await updateProduct(id, product);
-        
-        // Update image if provided
+
+        // Update image if a new image URL is provided
         if (imageUrl) {
-            await addProductImage(id, imageUrl);
+            const productImages = await getProductImages(id);
+            if (productImages.length > 0) {
+                // Update the first image if the product has one
+                await updateProductImage(productImages[0].id!, imageUrl);
+            } else {
+                // If no images exist, add a new one
+                await addProductImage(id, imageUrl);
+            }
         }
 
         return new Response(JSON.stringify(updatedProduct), {
@@ -197,6 +200,7 @@ export async function PUT(req: Request): Promise<Response> {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
+        console.error('Error updating product:', error);
         return new Response(JSON.stringify({ error: 'Error updating product' }), { status: 500 });
     }
 }
@@ -205,13 +209,14 @@ export async function PUT(req: Request): Promise<Response> {
 export async function DELETE(req: Request): Promise<Response> {
     try {
         const { id }: { id: number } = await req.json();
-        
+
         // Delete all images associated with the product
         const productImages = await getProductImages(id);
         for (let image of productImages) {
             await deleteProductImage(image.id!);
         }
 
+        // Delete the product
         const deletedProduct = await deleteProduct(id);
         return new Response(JSON.stringify(deletedProduct), {
             status: 200,

@@ -20,8 +20,9 @@ type ProductWithImages = {
 };
 
 const ProductPage = () => {
-  const [products, setProducts] = useState<ProductWithImages[]>([]);  // Use ProductWithImages
+  const [products, setProducts] = useState<ProductWithImages[]>([]);
   const [formData, setFormData] = useState({
+    id: 0,  // Add an id field to manage existing products
     name: '',
     description: '',
     price: 0,
@@ -43,24 +44,51 @@ const ProductPage = () => {
     }
   };
 
+  // Fetch product data if editing an existing product
+  const fetchProductById = async (id: number) => {
+    const res = await fetch(`/api/products?productId=${id}`);
+    const data = await res.json();
+    if (data && data.id) {
+      setFormData({
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        stock_quantity: data.stock_quantity,
+        category_id: data.category_id,
+        imageUrl: data.images.length > 0 ? data.images[0].image_url : '',  // Set the first image URL
+      });
+    }
+  };
+
   // Fetch products on page load
   useEffect(() => {
     fetchProducts();
   }, []);
 
   // Handle input changes in the form
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+
+    // If it's a select (like category_id), make sure to convert the value to an integer
+    if (e.target instanceof HTMLSelectElement) {
+      setFormData((prevData) => ({ ...prevData, [name]: parseInt(value) }));
+    } else {
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    }
   };
 
-  // Handle form submission for adding a new product
+  // Handle form submission for adding a new product or updating an existing one
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('/api/products', {
-      method: 'POST',
+    const url = formData.id ? `/api/products` : '/api/products';  // API endpoint (same for both POST and PUT)
+    const method = formData.id ? 'PUT' : 'POST';  // If id exists, it's an update (PUT), otherwise create (POST)
+
+    const res = await fetch(url, {
+      method: method,
       body: JSON.stringify({
+        id: formData.id,  // Ensure id is passed in the body for PUT
         product: formData,
         imageUrl: formData.imageUrl,
       }),
@@ -69,11 +97,32 @@ const ProductPage = () => {
       },
     });
 
-    const newProduct = await res.json();
+    const result = await res.json();
 
-    // If the product includes images, update the product list
-    setProducts((prevProducts) => [...prevProducts, newProduct]);  // Update state with new product including images
-    setFormData({ name: '', description: '', price: 0, stock_quantity: 0, category_id: 0, imageUrl: '' });
+    if (method === 'PUT') {
+      // Update the product in the list
+      setProducts((prevProducts) =>
+        prevProducts.map((product) => (product.id === formData.id ? result : product))
+      );
+    } else {
+      // Add the new product to the list
+      setProducts((prevProducts) => [...prevProducts, result]);
+    }
+
+    setFormData({
+      id: 0,
+      name: '',
+      description: '',
+      price: 0,
+      stock_quantity: 0,
+      category_id: 0,
+      imageUrl: ''
+    });
+  };
+
+  // Handle editing a product (you can add a click handler to each product)
+  const handleEdit = (product: ProductWithImages) => {
+    fetchProductById(product.id);
   };
 
   return (
@@ -86,7 +135,7 @@ const ProductPage = () => {
 
       {/* Product Form Section */}
       <section className="py-16 px-6 bg-white">
-        <h2 className="text-3xl font-bold text-center mb-6">Add New Product</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">{formData.id ? 'Update Product' : 'Add New Product'}</h2>
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6 bg-white p-8 shadow-lg rounded-lg">
           <div>
             <label className="block text-lg font-medium text-gray-700">Product Name</label>
@@ -132,15 +181,20 @@ const ProductPage = () => {
             />
           </div>
           <div>
-            <label className="block text-lg font-medium text-gray-700">Category ID</label>
-            <input
-              type="number"
+            <label className="block text-lg font-medium text-gray-700">Category</label>
+            <select
               name="category_id"
               value={formData.category_id}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-md"
-              placeholder="Enter product category ID"
-            />
+            >
+              <option value={0}>Select a category</option>
+              <option value={1000}>Handcrafted Jewelry</option>
+              <option value={2000}>Ceramics</option>
+              <option value={3000}>Bags</option>
+              <option value={4000}>Lamps</option>
+              <option value={5000}>Decorations</option>
+            </select>
           </div>
           <div>
             <label className="block text-lg font-medium text-gray-700">Product Image URL</label>
@@ -154,7 +208,7 @@ const ProductPage = () => {
             />
           </div>
           <div className="text-center">
-            <button type="submit" className="bg-blue-500 text-white py-2 px-6 rounded-lg">Add Product</button>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-6 rounded-lg">{formData.id ? 'Update Product' : 'Add Product'}</button>
           </div>
         </form>
       </section>
@@ -169,16 +223,16 @@ const ProductPage = () => {
               <p className="text-gray-700 mb-4">{product.description}</p>
               <p className="text-lg font-semibold text-blue-500">${product.price}</p>
               <div className="mt-4">
-                {/* Check if product.images is defined and is an array */}
-                {(product.images || []).map((image, index) => (
+                {(product.images || []).map((image) => (
                   <img
-                    key={image.id ? image.id : `${product.id}-image-${index}`}  // Use a fallback key if image.id is not available
+                    key={image.id}
                     src={image.image_url}
                     alt={product.name}
                     className="w-full h-48 object-cover mt-2"
                   />
                 ))}
               </div>
+              <button onClick={() => handleEdit(product)} className="mt-4 text-blue-500">Edit</button>
             </div>
           ))}
         </div>
