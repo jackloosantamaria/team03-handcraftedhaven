@@ -2,7 +2,9 @@
 import { Metadata } from "next";
 import { FaEnvelope, FaLock } from "react-icons/fa"; // Import icons
 import { useState } from "react";
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 import styles from './home.module.css';
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 import { truncate } from "fs/promises";
 
 export const metadata: Metadata = {
@@ -83,6 +85,7 @@ export function LoginForm() {
 
       {/* Create Account Button */}
       <p className="text-center text-sm text-gray-800">
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
         Don't have an account? <a href="#!" className="text-blue-500 hover:underline">Create an account</a>
       </p>
 

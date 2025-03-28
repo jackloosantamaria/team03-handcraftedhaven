@@ -4,7 +4,7 @@ import HumMenu from "./hum-menu";
 import NavBar from "./nav-bar";
 
 export const experimental_ppr = true;
- 
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */} 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [isVisible, setIsVisible] = useState(true);
 

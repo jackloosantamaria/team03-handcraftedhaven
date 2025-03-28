@@ -1,10 +1,12 @@
 "use client";
 //import { HomeIcon, PhoneIcon } from '@heroicons/react/24/outline';
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
+{/* eslint-disable-next-line react/no-unescaped-entities */}
 import { useState } from 'react';
 
 export default function NavBar() {

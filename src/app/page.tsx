@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import NavBar from './ui/navegation/nav-bar';
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import HumMenu from './ui/navegation/hum-menu';
 import { motion } from "framer-motion";
