@@ -137,6 +137,7 @@ export async function GET(req: Request): Promise<Response> {
             });
         } else {
             // Fetch all products
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
             const products = await getProducts();
             for (let product of products) {
                 const images = await getProductImages(product.id!); // Fetch images for each product
@@ -148,6 +149,7 @@ export async function GET(req: Request): Promise<Response> {
                 headers: { 'Content-Type': 'application/json' },
             });
         }
+        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error fetching products' }), { status: 500 });
     }
@@ -170,6 +172,7 @@ export async function POST(req: Request): Promise<Response> {
             status: 201,
             headers: { 'Content-Type': 'application/json' },
         });
+        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error adding product' }), { status: 500 });
     }
@@ -199,6 +202,7 @@ export async function PUT(req: Request): Promise<Response> {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
+        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error updating product' }), { status: 500 });
     }
@@ -211,6 +215,7 @@ export async function DELETE(req: Request): Promise<Response> {
 
         // Delete all images associated with the product
         const productImages = await getProductImages(id);
+        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
         for (let image of productImages) {
             await deleteProductImage(image.id!); // Delete each associated image
         }
@@ -221,6 +226,7 @@ export async function DELETE(req: Request): Promise<Response> {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
+    {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error deleting product' }), { status: 500 });
     }

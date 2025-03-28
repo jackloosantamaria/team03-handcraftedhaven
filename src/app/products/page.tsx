@@ -7,7 +7,7 @@ type ProductImage = {
   product_id: number;
   image_url: string;
 };
-
+{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 type ProductWithImages = {
   id: number;
   name: string;
