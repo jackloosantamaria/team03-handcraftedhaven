@@ -119,7 +119,7 @@ export async function GET(req: Request): Promise<Response> {
         const productId = url.searchParams.get("productId");
 
         if (productId) {
-            // Fetch a single product
+            // Fetch a single product by its ID
             const products = await getProducts();
             const product = products.find(p => p.id === Number(productId));
             if (!product) {
@@ -127,7 +127,7 @@ export async function GET(req: Request): Promise<Response> {
             }
 
             // Add images to the product
-            const images = await getProductImages(product.id!); // Get images for the specific product
+            const images = await getProductImages(product.id!);
             (product as ProductWithImages).images = images;
 
             return new Response(JSON.stringify(product), {
@@ -135,10 +135,10 @@ export async function GET(req: Request): Promise<Response> {
                 headers: { 'Content-Type': 'application/json' },
             });
         } else {
-            // If no productId is provided, get all products
+            // Fetch all products
             const products = await getProducts();
             for (let product of products) {
-                const images = await getProductImages(product.id!); // Get images for each product
+                const images = await getProductImages(product.id!); // Fetch images for each product
                 (product as ProductWithImages).images = images;
             }
 
@@ -157,7 +157,7 @@ export async function POST(req: Request): Promise<Response> {
     try {
         const { product, imageUrl }: { product: Product, imageUrl: string } = await req.json();
 
-        // Add product
+        // Add the product
         const newProduct = await addProduct(product);
 
         // Add image if provided
@@ -180,7 +180,6 @@ export async function PUT(req: Request): Promise<Response> {
         const { id, product, imageUrl }: { id: number, product: Product, imageUrl?: string } = await req.json();
 
         // Update the product
-        console.log('Data received:', {id, product, imageUrl});
         const updatedProduct = await updateProduct(id, product);
 
         // Update image if a new image URL is provided
@@ -200,12 +199,11 @@ export async function PUT(req: Request): Promise<Response> {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        console.error('Error updating product:', error);
         return new Response(JSON.stringify({ error: 'Error updating product' }), { status: 500 });
     }
 }
 
-// Delete a product
+// Delete a product and its associated images
 export async function DELETE(req: Request): Promise<Response> {
     try {
         const { id }: { id: number } = await req.json();
@@ -213,10 +211,10 @@ export async function DELETE(req: Request): Promise<Response> {
         // Delete all images associated with the product
         const productImages = await getProductImages(id);
         for (let image of productImages) {
-            await deleteProductImage(image.id!);
+            await deleteProductImage(image.id!); // Delete each associated image
         }
 
-        // Delete the product
+        // Delete the product itself
         const deletedProduct = await deleteProduct(id);
         return new Response(JSON.stringify(deletedProduct), {
             status: 200,

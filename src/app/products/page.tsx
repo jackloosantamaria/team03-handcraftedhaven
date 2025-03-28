@@ -16,13 +16,13 @@ type ProductWithImages = {
   stock_quantity: number;
   category_id: number;
   created_at: string;
-  images: ProductImage[];  // Include images associated with the product
+  images: ProductImage[];  // Add images associated with the product
 };
 
 const ProductPage = () => {
   const [products, setProducts] = useState<ProductWithImages[]>([]);
   const [formData, setFormData] = useState({
-    id: 0,  // Add an id field to manage existing products
+    id: 0,  
     name: '',
     description: '',
     price: 0,
@@ -70,7 +70,7 @@ const ProductPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
-    // If it's a select (like category_id), make sure to convert the value to an integer
+    // If it's a select (like category_id),it converts the value to an integer
     if (e.target instanceof HTMLSelectElement) {
       setFormData((prevData) => ({ ...prevData, [name]: parseInt(value) }));
     } else {
@@ -125,12 +125,34 @@ const ProductPage = () => {
     fetchProductById(product.id);
   };
 
+  // Handle deleting a product
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      const res = await fetch(`/api/products`, {
+        method: 'DELETE',
+        body: JSON.stringify({ id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        // Remove the deleted product from the state
+        setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      } else {
+        console.error("Error deleting product:", result);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-blue-500 text-white py-24 text-center">
-        <h1 className="text-5xl font-bold mb-4">Manage Your Products</h1>
-        <p className="text-xl mb-8">Add, Update, and Manage your products easily.</p>
+      <section className="w-full h-40 md:h-60 bg-[url(./heroImage.jpg)] bg-cover bg-center rounded-t-lg text-center py-24">
+        <h1 className="text-5xl font-bold text-white mb-4">Manage Your Products</h1>
+        <p className="text-xl text-white mb-8">Add, Update, and Manage your products easily.</p>
       </section>
 
       {/* Product Form Section */}
@@ -231,8 +253,11 @@ const ProductPage = () => {
                     className="w-full h-48 object-cover mt-2"
                   />
                 ))}
+              </div >
+              <div className='mt-4 flex space-x-4'>
+                <button onClick={() => handleEdit(product)} className="mt-4 text-blue-500">Edit</button>
+                <button onClick={() => handleDelete(product.id)} className="mt-4 text-red-500">Delete</button>
               </div>
-              <button onClick={() => handleEdit(product)} className="mt-4 text-blue-500">Edit</button>
             </div>
           ))}
         </div>
