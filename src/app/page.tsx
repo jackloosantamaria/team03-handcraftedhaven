@@ -1,23 +1,46 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from './ui/navegation/nav-bar';
 import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import HumMenu from './ui/navegation/hum-menu';
+import { motion } from "framer-motion";
 
 const Page = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY <= 120) {
+        setIsVisible(true); // Show when at the top
+      } else {
+        setIsVisible(false); // Hide on scroll down
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-[url(./heroImage.jpg)] bg-cover bg-center">
-          {/* Navigation Bar */}
-          <div className="hidden md:block">
+        {/* Navigation Bar */}
+        <motion.div
+          initial={{ y: 0, opacity: 1 }}
+          animate={isVisible ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="fixed top-0 left-0 right-0 text-white text-center py-4 shadow-lg z-50"
+        >
+          <div className="hidden md:block fixed top-0 left-0 right-0">
             <NavBar />
           </div>
-
-          <div className='md:hidden'>
+          <div className='md:hidden fixed top-0 left-0 right-0'>
             <HumMenu />
           </div>
-
+        </motion.div>
           {/* Social Media Icons */}
           {/* <div className="flex space-x-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
@@ -91,10 +114,8 @@ const Page = () => {
       <footer className="bg-gray-800 text-white py-8 text-center">
         <p>© 2025 Handcrafted Haven. All rights reserved.</p>
       </footer>
-    </div>
+    </main>
   );
-
-
 };
 
 

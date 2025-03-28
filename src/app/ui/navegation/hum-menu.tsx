@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { ArrowRightIcon } from "@heroicons/react/16/solid";
 
 export default function HumMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,9 @@ export default function HumMenu() {
     <div className="z-10 px-4 md:px-8 py-2 text-white font-bold bg-gray-800 bg-opacity-50 shadow-md backdrop-blur-md rounded-b-lg">
       <div className="flex items-center justify-between px-6 py-2">
         {/* Left: Logo */}
-        <div className="text-2xl font-bold">HFH</div>
+        <Link href={'/'}>
+            <div className=" text-2xl font-bold mr-10">HFH</div>
+        </Link>
 
         {/* Right: Hamburger Menu Button (Only Visible on Mobile) */}
         <button onClick={toggleMenu} className="text-white text-2xl md:hidden focus:outline-none">
@@ -45,6 +48,16 @@ export default function HumMenu() {
               {link.name}
             </Link>
           ))}
+
+          {/* Log in Button (Only shows if current page matches a nav link) */}
+          {navLinks.some(link => link.href === pathname) && (
+            <Link href="/login" className="text-white text-base focus:outline-none">
+                <div className="flex items-center justify-between">
+                    <span>Log in</span>
+                    <ArrowRightIcon className="w-5 md:w-6 ml-2" />
+                </div>
+            </Link>
+          )}
         </div>
       )}
     </div>
