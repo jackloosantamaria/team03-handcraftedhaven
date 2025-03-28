@@ -1,22 +1,70 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
+import NavBar from './ui/navegation/nav-bar';
+import { FaFacebook, FaTwitter } from 'react-icons/fa';
+import HumMenu from './ui/navegation/hum-menu';
+import { motion } from "framer-motion";
 
-const Home = () => {
+const Page = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY <= 120) {
+        setIsVisible(true); // Show when at the top
+      } else {
+        setIsVisible(false); // Hide on scroll down
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-[url(./heroImage.jpg)] bg-cover text-white py-24 text-center">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Handcrafted Haven</h1>
-        <p className="text-xl mb-8">A digital marketplace for unique, handmade treasures crafted by talented artisans.</p>
-        <a
-          href="#explore"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-full font-semibold"
+      <section className="bg-[url(./heroImage.jpg)] bg-cover bg-center">
+        {/* Navigation Bar */}
+        <motion.div
+          initial={{ y: 0, opacity: 1 }}
+          animate={isVisible ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="fixed top-0 left-0 right-0 text-white text-center py-4 shadow-lg z-50"
         >
-          Explore Now
-        </a>
+          <div className="hidden md:block fixed top-0 left-0 right-0">
+            <NavBar />
+          </div>
+          <div className='md:hidden fixed top-0 left-0 right-0'>
+            <HumMenu />
+          </div>
+        </motion.div>
+          {/* Social Media Icons */}
+          {/* <div className="flex space-x-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                  <FaFacebook className="text-xl hover:text-blue-400 transition" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                  <FaTwitter className="text-xl hover:text-blue-400 transition" />
+              </a> 
+          </div> */}
+
+        <div className='text-white py-24 text-center w-full'>
+          <h1 className="text-5xl font-bold mb-4">Welcome to Handcrafted Haven</h1>
+          <p className="text-xl mb-8">A digital marketplace for unique, handmade treasures crafted by talented artisans.</p>
+          <a
+            href="#explore"
+            className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 py-3 px-6 rounded-full font-semibold"
+          >
+            Explore Now
+          </a>
+        </div>
       </section>
 
       {/* About Section */}
-      <section id="explore" className="py-16 px-6 text-center bg-white">
+      <section id="explore" className="py-16 px-6 text-center bg-white text-black">
         <h2 className="text-3xl font-bold mb-6">What is Handcrafted Haven?</h2>
         <p className="text-lg max-w-3xl mx-auto mb-8">
           Handcrafted Haven is an innovative web application designed to connect artisans and crafters with customers who value the beauty and uniqueness of handmade items. Our platform offers a virtual marketplace where creators can showcase and sell their works, fostering a community of passionate makers and conscious consumers.
@@ -30,7 +78,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 bg-gray-100 text-center">
+      <section id="features" className="py-16 bg-gray-100 text-center text-black">
         <h2 className="text-3xl font-bold mb-6">Features</h2>
         <div className="grid md:grid-cols-3 gap-12">
           <div className="feature-card bg-white p-6 rounded-lg shadow-lg">
@@ -66,14 +114,12 @@ const Home = () => {
       <footer className="bg-gray-800 text-white py-8 text-center">
         <p>© 2025 Handcrafted Haven. All rights reserved.</p>
       </footer>
-    </div>
+    </main>
   );
-
-
 };
 
 
 
 
 
-export default Home;
+export default Page;
