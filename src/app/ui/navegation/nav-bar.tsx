@@ -6,8 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
-{/* eslint-disable-next-line react/no-unescaped-entities */}
-import { useState } from 'react';
+
 
 export default function NavBar() {
     const pathname = usePathname();
