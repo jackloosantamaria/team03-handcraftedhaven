@@ -27,7 +27,7 @@ Work Item Brainstorming
 11.	Create a responsive design for all type of devices.
 
 
-
+//https://github.com/jackloosantamaria/team03-handcraftedhaven.git
 
 
 
