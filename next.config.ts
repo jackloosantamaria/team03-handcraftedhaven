@@ -8,13 +8,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/navegation',
-        destination: '/ui/navegation',
+        source: '/navigation',
+        destination: '/ui/navigation',
         permanent: true,
       },
       {
-        source: '/navegation/:path*', // This covers all sub-routes like /ui/navegation, /ui/login
-        destination: '/ui/navegation/:path*',
+        source: '/navigation/:path*', // This covers all sub-routes like /ui/navigation, /ui/login
+        destination: '/ui/navigation/:path*',
         permanent: true,
       },
     ];
