@@ -14,12 +14,19 @@ export default function LoginPage() {
         {/* Background Image Section */}
         <div className="w-full h-40 md:h-60 bg-[url(./heroImage.jpg)] bg-cover bg-center rounded-t-lg"></div>
 
-        {/* Conditionally render LoginForm or CreateAccountForm */}
-        {isLogin ? (
-          <LoginForm setIsLogin={setIsLogin} />
-        ) : (
-          <CreateAccountForm setIsLogin={setIsLogin} />
-        )}
+        {/* Forms with transitions */}
+        <div className="relative overflow-hidden">
+          <div
+            className={`transition-all duration-300 ease-in-out transform ${isLogin ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+          >
+            <LoginForm setIsLogin={setIsLogin} />
+          </div>
+          <div
+            className={`transition-all duration-300 ease-in-out transform absolute w-full top-0 left-0 ${!isLogin ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+          >
+            <CreateAccountForm setIsLogin={setIsLogin} />
+          </div>
+        </div>
       </div>
     </main>
   );
