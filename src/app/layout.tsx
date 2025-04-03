@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
 //import "./page.module.css";
 
 const geistSans = Geist({
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://team03-handcraftedhaven.vercel.app'),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
