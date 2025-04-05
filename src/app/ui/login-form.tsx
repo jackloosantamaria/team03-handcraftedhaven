@@ -86,12 +86,11 @@ export function LoginForm({ setIsLogin }: LoginFormProps) {
           <input type="checkbox" id="remember" className="h-4 w-4" />
           <label htmlFor="remember" className="text-sm text-black ml-2">Remember me</label>
         </div>
-        <a href="#" className="text-sm text-blue-500 hover:underline">Forgot password?</a>
+        {/* <a href="/" className="text-sm text-blue-500 hover:underline">Forgot password?</a> */}
       </div>
 
       {/* Submit Button */}
-      <button disabled={pending} type="submit" className="w-full py-3 bg-yellow-500 text-white rounded-md font-semibold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Sign in</button>
-
+      <button disabled={ pending } type="submit" className="w-full py-3 bg-yellow-500 text-white rounded-md font-semibold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Sign in</button>
       {/* Toggle to Create Account */}
       <p className="text-center text-sm text-gray-800">
         <span>Don't have an account?</span>

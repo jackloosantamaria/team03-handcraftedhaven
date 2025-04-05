@@ -1,11 +1,17 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import HumMenu from "./hum-menu";
-import NavBar from "./nav-bar";
+import HumMenu from "../navigation/hum-menu";
+import NavBar from "../navigation/nav-bar";
 
 export const experimental_ppr = true;
 {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */} 
-export default function Layout( children: React.ReactNode ) {
+export default function Layout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {

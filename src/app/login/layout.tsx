@@ -2,13 +2,17 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import HumMenu from "../ui/navegation/hum-menu";
-import NavBar from "../ui/navegation/nav-bar";
+import HumMenu from "../ui/navigation/hum-menu";
+import NavBar from "../ui/navigation/nav-bar";
 
 
 export const experimental_ppr = true;
  
-export default function Layout( children : React.ReactNode ) {
+export default function Layout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {

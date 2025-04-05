@@ -22,8 +22,12 @@ export default function NavBar() {
                 const res = await fetch(`../../api/users/`, { method: 'GET' });
                 if (!res.ok) throw new Error("User not found");
                 const data = await res.json();
-                setProfile(data);
-                setIsUser(true);
+                if(data?.baseinfo.email) {
+                    setProfile(data);
+                    setIsUser(true);
+                } else {
+                    setIsUser(false);
+                }
             } catch (err) {
                 setIsUser(false);
                 setError(err instanceof Error ? err.message : "An unknown error occurred");
@@ -41,7 +45,7 @@ export default function NavBar() {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "Members", href: "/members" },
-        { name: "Products", href: "/products" },
+        { name: "Products", href: "/navigation/products" },
         { name: "Contacts", href: "/contacts" },
         ...(isUser ? [{ name: "Product Management", href: "/productManagement" }] : []),
     ];
@@ -74,7 +78,7 @@ export default function NavBar() {
             <div className="flex items-center justify-between px-6 py-2 w-full">
                 <div className='flex items-center'>
                     {/* Left Logo */}
-                    <Link href={'/'}>
+                    <Link key={"logo"} href={'/'}>
                         <div className=" text-2xl font-bold mr-10">HFH</div>
                     </Link>
 
@@ -110,16 +114,16 @@ export default function NavBar() {
                 {/* Log in Button (Only shows if current page matches a nav link) */}
                 
                 {error ? navLinks.some(link => link.href === pathname) && (
-                        <Link href="/login" className="text-white text-base focus:outline-none">
+                        <Link key={"login"} href="/login" className="text-white text-base focus:outline-none">
                             <div className="flex items-center justify-between">
                                 <span>Log in</span>
                                 <ArrowRightIcon className="w-5 md:w-6 ml-2" />
                             </div>
                         </Link>
                     )
-                        :  profile?.baseinfo.first_name && <div className="flex items-center justify-between space-x-4">
+                        : profile?.baseinfo?.first_name && <div className="flex items-center justify-between space-x-4">
                                 <span className="text-white text-base">
-                                    Hello, {profile?.baseinfo.first_name}!
+                                    Hello, {profile?.baseinfo?.first_name}!
                                 </span>
                                 <button
                                     onClick={handleLogout} // Add the logout function
@@ -127,10 +131,9 @@ export default function NavBar() {
                                 >
                                     Logout
                                 </button>
-                            </div>
+                        </div>
                 }
             </div>
-
         </div>
     )
 }

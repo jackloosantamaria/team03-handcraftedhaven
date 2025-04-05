@@ -1,3 +1,5 @@
+'use server';
+
 import { NextResponse } from 'next/server';
 import { getProfileDTO } from '@/app/lib/dto';
 import { verifySession } from '@/app/lib/dal';
@@ -8,7 +10,7 @@ export async function GET() {
         const session = await verifySession();
 
         if (!session || !session.userId) { 
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 200 });
         }
 
         const profile = await getProfileDTO(session.userId);
