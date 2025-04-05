@@ -47,7 +47,7 @@ export default function NavBar() {
         { name: "Members", href: "/members" },
         { name: "Products", href: "/navigation/products" },
         { name: "Contacts", href: "/contacts" },
-        ...(isUser ? [{ name: "Product Management", href: "/productManagement" }] : []),
+        ...(isUser ? [{ name: "Product Management", href: "/product-management" }] : []),
     ];
 
     async function handleLogout() {
