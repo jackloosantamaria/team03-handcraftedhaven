@@ -27,7 +27,6 @@ export async function GET() {
 }
 
 export async function DELETE() {
-    console.log("not loging out eliud")
     try {
         await deleteSession(); // Handle session deletion
         return NextResponse.json({ message: 'Logout successful' }, { status: 200 });

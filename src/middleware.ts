@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { decrypt } from '@/app/lib/session';
 
 // 1. Specify protected and public routes
-const protectedRoutes = ['ui/navigation', 'ui/navigation/productManagement'];
+const protectedRoutes = ['ui/navigation', 'ui/navigation/product-management'];
 const publicRoutes = [ '/login', '/signup', '/'];
 
 // Middleware function
@@ -28,12 +28,12 @@ export default async function middleware(req: NextRequest) {
     !req.nextUrl.pathname.startsWith('ui/navigation')
   ) {
     return NextResponse.redirect(new URL('ui/navigation', req.nextUrl));
-  } */
-
+  }
+ */
   return NextResponse.next();
 }
 
 // Routes Middleware should not run on
 export const config = {
-  //matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };

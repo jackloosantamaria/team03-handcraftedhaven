@@ -3,7 +3,7 @@
 {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 //import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { useEffect, useState } from 'react';
@@ -15,7 +15,8 @@ export default function NavBar() {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<any>(null);
-
+    const router = useRouter();
+    
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -63,7 +64,7 @@ export default function NavBar() {
             setProfile(null);
             setIsUser(false);
             setError("no user");
-            window.location.reload();
+            router.push('/login');
         } catch (err) {
             setError(err instanceof Error ? err.message : "An unknown error occurred");
         } finally {
