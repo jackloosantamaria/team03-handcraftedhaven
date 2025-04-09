@@ -22,10 +22,11 @@ type ProductWithImages = {
   category_id: number;
   created_at: string;
   images: ProductImage[];
+  rating?: number;
 };
 
 
-
+const generateRandomRating = () => Math.floor(Math.random() * 5) + 1;
 
 
 
@@ -89,7 +90,18 @@ const ProductManagementPage = () => {
     fetchProducts(); // Fetch products when the component mounts
   }, []);
 
-  
+  useEffect(() => {
+    if (products.length > 0) {
+      const productsWithRatings = products.map((product) => ({
+        ...product,
+        rating: generateRandomRating(), //assign random rating
+      }));
+      setProducts(productsWithRatings); //update product with random rating
+    }
+  }, [products.length]);
+    
+
+    
   function onFilterValueSelected(filterValue: any) {
     updateCategoryIdFilter(filterValue)
   }
@@ -116,6 +128,11 @@ const ProductManagementPage = () => {
                 <p className="text-gray-700 mb-4">{product.description}</p>
                 <p className="text-gray-700 mb-4">Available Quantity: {product.stock_quantity}</p>
                 <p className="text-lg font-semibold text-blue-500">Price: ${product.price}</p>
+
+                {product.rating && (
+                  <p className="text-lg font-semibold text-yellow-500">Rating: {product.rating} / 5</p>
+                )}
+              
               </div>
               <div className="mt-4">
                 {/* Display all product images */}
