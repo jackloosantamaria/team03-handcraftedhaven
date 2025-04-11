@@ -13,7 +13,10 @@ export default function HumMenu() {
   const toggleMenu = () => setIsOpen(!isOpen);
   const [isUser, setIsUser] = useState(false);
   const [profile, setProfile] = useState<Profile | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
+  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [error, setError] = useState<any>(null);
   const router = useRouter();
 

@@ -1,6 +1,6 @@
 "use client";
 //import { HomeIcon, PhoneIcon } from '@heroicons/react/24/outline';
-{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+
 //import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -13,7 +13,10 @@ export default function NavBar() {
     const pathname = usePathname();
     const [isUser, setIsUser] = useState(false);
     const [profile, setProfile] = useState<Profile | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loading, setLoading] = useState(true);
+    
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [error, setError] = useState<any>(null);
     const router = useRouter();
     

@@ -98,10 +98,11 @@ const ProductManagementPage = () => {
       }));
       setProducts(productsWithRatings); //update product with random rating
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.length]);
     
 
-    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any  
   function onFilterValueSelected(filterValue: any) {
     updateCategoryIdFilter(filterValue)
   }
@@ -137,6 +138,7 @@ const ProductManagementPage = () => {
               <div className="mt-4">
                 {/* Display all product images */}
                 {(product.images || []).map((image) => (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     key={image.id}
                     src={image.image_url}

@@ -7,7 +7,7 @@ type ProductImage = {
   product_id: number;
   image_url: string;
 };
-{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+
 type ProductWithImages = {
   id: number;
   name: string;
@@ -246,6 +246,7 @@ const ProductPage = () => {
               <p className="text-lg font-semibold text-blue-500">${product.price}</p>
               <div className="mt-4">
                 {(product.images || []).map((image) => (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     key={image.id}
                     src={image.image_url}

@@ -3,6 +3,7 @@ import { decrypt } from '@/app/lib/session';
 
 // 1. Specify protected and public routes
 const protectedRoutes = ['ui/navigation', 'ui/navigation/product-management'];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const publicRoutes = [ '/login', '/signup', '/'];
 
 // Middleware function

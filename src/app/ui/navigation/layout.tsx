@@ -6,7 +6,7 @@ import HumMenu from "../navigation/hum-menu";
 import NavBar from "../navigation/nav-bar";
 
 export const experimental_ppr = true;
-{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */} 
+
 export default function Layout({
     children,
   }: {
