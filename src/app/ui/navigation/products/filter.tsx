@@ -3,8 +3,8 @@ const Prices = [{name: "All", id: 0}, {name: "Under $20", id: 100}, {name: "Unde
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Filter(props) {
-    function onFilterValueChanged(event) {
+export function Filter(props: any) {
+    function onFilterValueChanged(event: React.ChangeEvent<HTMLSelectElement>) {
         props.filterValueSelected(event.target.value)
     }
     return (
@@ -15,9 +15,9 @@ export function Filter(props) {
                       </select>
         )
 }
-
-export function FilterByPrice(props) {
-    function onFilterValueChanged(event) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function FilterByPrice(props:any) {
+    function onFilterValueChanged(event: React.ChangeEvent<HTMLSelectElement>) {
         props.filterValueSelected(event.target.value)
     }
     return (
