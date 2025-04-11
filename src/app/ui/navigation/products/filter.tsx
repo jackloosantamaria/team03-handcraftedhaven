@@ -2,7 +2,7 @@ const Categories = [{name: "All", id: 0}, {name: "Hand Crafted Jewellery", id: 1
 const Prices = [{name: "All", id: 0}, {name: "Under $20", id: 100}, {name: "Under $50", id: 200},{name: "Under $100", id: 300}, {name: "Over $100", id: 400}]
 
 
-// @ts-ignore
+// @ts-expect-error
 export function Filter(props) {
     function onFilterValueChanged(event) {
         props.filterValueSelected(event.target.value)
@@ -15,7 +15,7 @@ export function Filter(props) {
                       </select>
         )
 }
-// @ts-ignore
+// @ts-expect-error
 export function FilterByPrice(props) {
     function onFilterValueChanged(event) {
         props.filterValueSelected(event.target.value)
