@@ -4,6 +4,7 @@ const Prices = [{name: "All", id: 0}, {name: "Under $20", id: 100}, {name: "Unde
 
 // @ts-expect-error props intentionally left untyped for legacy compatibility
 export function Filter(props) {
+    // @ts-expect-error This is necessary to bypass legacy compatibility issues
     function onFilterValueChanged(event) {
         props.filterValueSelected(event.target.value)
     }
@@ -17,6 +18,7 @@ export function Filter(props) {
 }
 // @ts-expect-error props intentionally left untyped for legacy compatibility
 export function FilterByPrice(props) {
+    // @ts-expect-error This is necessary to bypass legacy compatibility issues
     function onFilterValueChanged(event) {
         props.filterValueSelected(event.target.value)
     }
