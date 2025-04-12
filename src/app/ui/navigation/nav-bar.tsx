@@ -48,7 +48,7 @@ export default function NavBar() {
 
     const navLinks = [
         { name: "Home", href: "/" },
-        { name: "Members", href: "/members" },
+        { name: "Members", href: "/navigation/members" },
         ...(isUser ? [{ name: "Product Management", href: "/navigation/product-management" }] : []),
         { name: "Contacts", href: "/contacts" },
         { name: "Products", href: "/navigation/products" },

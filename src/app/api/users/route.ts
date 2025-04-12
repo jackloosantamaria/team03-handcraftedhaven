@@ -5,6 +5,7 @@ import { getProfileDTO } from '@/app/lib/dto';
 import { verifySession } from '@/app/lib/dal';
 import { deleteSession } from '@/app/lib/session';
 
+
 export async function GET() {
     try {
         const session = await verifySession();
