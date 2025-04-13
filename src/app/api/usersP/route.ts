@@ -18,7 +18,7 @@ async function getUsers(): Promise<User[]> {
     `;
     return data;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(req: Request): Promise<Response> {
     try {
         

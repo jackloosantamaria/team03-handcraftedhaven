@@ -35,6 +35,7 @@ const MemberPage = () => {
   return (
     <div className="flex justify-center mt-24">
       <div className="pb-8 pt-8 w-2/5 bg-yellow-500 rounded-full">
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
         <h1 className="text-white text-3xl font-bold text-center mb-6 mt-6">Sellers' Profiles</h1>
         <div>
           {profiles.map((profile, image) => (
